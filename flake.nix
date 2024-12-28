@@ -3,9 +3,9 @@
 
     inputs = {
         # Specify the source of Home Manager and Nixpkgs.
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
         home-manager = {
-            url = "github:nix-community/home-manager";
+            url = "github:nix-community/home-manager/release-24.11";
             inputs.nixpkgs.follows = "nixpkgs";
         };
         nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -18,11 +18,13 @@
         nixos-hardware, 
         ... 
     }@inputs: let
-        system = "x86_64-linux";
-        user = "curvature";
+        systemVariables = import ./systemVariables.nix;
+        system = systemVariables.system;
+        user = systemVariables.username;
         hosts = [
-            { hostname = "nixnoob"; stateVersion = "24.11"; }
+            { hostname = systemVariables.hostname; stateVersion = systemVariables.nixVersion; }
         ];
+        homeStateVersion = systemVariables.homeVersion;
 
         pkgs = import nixpkgs { inherit system; };
 
@@ -33,28 +35,30 @@
             };
 
             modules = [
-                ./hosts/nixnoob/configuration.nix
-                ./hosts/nixnoob/hardware-configuration.nix
+                ./hosts/${systemVariables.hostname}/configuration.nix 
             ];
 
         };
             
     in {
-        nixosConfigurations = {
-            nixnoob = makeSystem { hostname = "nixnoob"; stateVersion = "24.11"; };
-        };
+        nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
+            configs // {
+                "${host.hostname}" = makeSystem {
+                    inherit (host) hostname stateVersion;
+                };
+            }) {} hosts;
 
-        homeConfigurations = {
-            curvature = home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-
-                modules = [ 
-                    ./home-manager/home.nix 
-                ];
-                # Optionally use extraSpecialArgs
-                # to pass through arguments to home.nix
+        homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = {
+                inherit inputs homeStateVersion user;
             };
+
+            modules = [
+                ./home-manager/home.nix
+            ];
         };
+
     };
 }
 

@@ -1,7 +1,11 @@
-# 
+#
+let
+    systemVariables = import ../../systemVariables.nix;
+    hostname = systemVariables.hostname;
+in
 {
 
-    networking.hostName = "nixnoob"; # Define your hostname.
+    networking.hostName = "${hostname}"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Configure network proxy if necessary

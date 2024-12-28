@@ -12,8 +12,13 @@
     ... 
 }:
 
-
+let
+    hostname = config.specialArgs.hostname;
+    stateVersion = config.specialArgs.stateVersion;
+    user = config.specialArgs.user;
+in
 {
+    
     imports =
         [ 
             # Include the results of the hardware scan.

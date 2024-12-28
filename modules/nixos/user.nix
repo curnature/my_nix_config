@@ -1,11 +1,15 @@
 #
 { config, pkgs, options, ... }:
 
+let
+    systemVariables = import ../../systemVariables.nix;
+    user = systemVariables.username;
+in
 {
     # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.curvature = {
+    users.users.${user} = {
         isNormalUser = true;
-        description = "curvature";
+        description = "${user}";
         extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [
             kdePackages.kate
