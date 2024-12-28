@@ -50,7 +50,9 @@
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
     home.file = {
-        ".vimrc".source = ./vimconfig/.vimrc;
+        
+        ".vimrc".source = ../modules/home-manager/vim/.vimrc;
+        
         # # Building this configuration will create a copy of 'dotfiles/screenrc' in
         # # the Nix store. Activating the configuration will then make '~/.screenrc' a
         # # symlink to the Nix store copy.
@@ -62,7 +64,7 @@
         #   org.gradle.daemon.idletimeout=3600000
         # '';
     };
-
+    
 
     #GitHub configuration
     programs.git = {
@@ -73,6 +75,10 @@
             init.defaultBranch = "main";
         };
     };
+
+    #imports = [
+    #    ../modules/home-manager/vim/vim.nix
+    #];
 
     # Home Manager can also manage your environment variables through
     # 'home.sessionVariables'. These will be explicitly sourced when using a
