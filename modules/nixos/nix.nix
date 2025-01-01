@@ -1,6 +1,6 @@
 # enable flakes
 let
-    systemVariables = import ../../systemVariables.nix;
+    systemVariables = import ./../../systemVariables.nix;
     stateVersion = systemVariables.nixVersion;
 in
 {

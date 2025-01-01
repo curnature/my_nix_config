@@ -1,11 +1,12 @@
 #
-{ config, pkgs, options, ... }:
+{ config, pkgs, options, user, ... }:
 
 let
-    systemVariables = import ../../systemVariables.nix;
+    systemVariables = import ./../../systemVariables.nix;
     user = systemVariables.username;
 in
 {
+    
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.${user} = {
         isNormalUser = true;

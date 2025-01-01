@@ -21,17 +21,17 @@ in
     
     imports =
         [ 
-            # Include the results of the hardware scan.
-            ./hardware-configuration.nix
-            ../../modules/nixos/boot.nix # grub + theme
-            ../../modules/nixos/nix.nix #enable flakes and declare nixos version
-            ../../modules/nixos/time_lang.nix # timezone + language
-            ../../modules/nixos/NvidiaGpu.nix # enable/disable
-            ../../modules/nixos/network.nix #
-            ../../modules/nixos/graphics.nix # display-manager
-            ../../modules/nixos/audio.nix # sound and other hardware
-            ../../modules/nixos/user.nix # 
-            ../../modules/nixos/packages.nix #
+            ./hardware-configuration.nix # Include the results of the hardware scan.
+            ./../../modules/nixos/boot.nix # grub + theme
+            ./../../modules/nixos/nix.nix #enable flakes and declare nixos version
+            ./../../modules/nixos/time_lang.nix # timezone + language
+            ./../../modules/nixos/NvidiaGpu.nix # enable/disable
+            ./../../modules/nixos/network.nix # network settings
+            ./../../modules/nixos/graphics.nix # display-manager
+            ./../../modules/nixos/audio.nix # sound and other hardware
+            ./../../modules/nixos/user.nix # 
+            ./../../modules/nixos/root_pkgs.nix # 
+            ./../../modules/nixos/zsh.nix # set default shell to zsh
 
 
         ];

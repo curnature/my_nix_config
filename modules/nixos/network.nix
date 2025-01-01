@@ -1,6 +1,6 @@
 #
 let
-    systemVariables = import ../../systemVariables.nix;
+    systemVariables = import ./../../systemVariables.nix;
     hostname = systemVariables.hostname;
 in
 {
@@ -15,7 +15,10 @@ in
     # Enable networking
     networking.networkmanager.enable = true;
 
-
+    # Enable dbus
+    services.dbus = {
+        enable = true;
+    };
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     # programs.mtr.enable = true;
@@ -34,8 +37,11 @@ in
     # networking.firewall.allowedUDPPorts = [ ... ];
     # Or disable the firewall altogether.
     # networking.firewall.enable = false;
-
-
+    
+    # Enable dconf 
+    programs.dconf = {
+        enable = true;
+    }; 
 }
 
 
