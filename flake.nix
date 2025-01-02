@@ -21,10 +21,12 @@
         # nixos profiles to optimize settings for different hardware
         nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-        #
+        # specify the source of nixvim + configurations
         nixvim = {
-            url = "github:nix-community/nixvim";
-            # 
+            # url = "github:nix-community/nixvim"; # original
+            # url = "github:niksingh710/nvix"; # seems not working
+            # url = "github:elythh/nixvim"; # 
+            url = "github:curnature/Neve"; # fork from redyf/Neve
             inputs.nixpkgs.follows = "nixpkgs";
         }; 
     };
@@ -82,6 +84,7 @@
             # load main home-manager config, other modules loaded in home.nix
             modules = [
                 ./home-manager/home.nix
+
             ];
         };
         #----------------------------------------------------------------

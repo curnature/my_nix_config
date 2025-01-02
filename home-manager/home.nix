@@ -11,7 +11,7 @@ let
     systemVariables = import ./../systemVariables.nix;
     homeStateVersion = systemVariables.homeVersion;
     user = systemVariables.username;
-
+    
 in
 {
     # Home Manager needs a bit of information about you and the paths it should
@@ -34,8 +34,9 @@ in
         ./home_pkgs.nix
         ./../modules/home-manager/yazi/default.nix
         ./../modules/home-manager/kitty/default.nix
-        inputs.nixvim.homeManagerModules.nixvim # load nixvim
-        ./../modules/home-manager/nixvim/default.nix # nixvim settings
+        # inputs.nixvim.homeManagerModules.nixvim # load nixvim, url in flake.nix
+        # ./../modules/home-manager/nixvim/default.nix # my own nixvim settings
+
 
     ];
     

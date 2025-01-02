@@ -12,11 +12,10 @@
     ... 
 }:
 
-let
-    hostname = config.specialArgs.hostname;
-    stateVersion = config.specialArgs.stateVersion;
-    user = config.specialArgs.user;
-in
+#let
+    # aaa
+
+#in
 {
     
     imports =

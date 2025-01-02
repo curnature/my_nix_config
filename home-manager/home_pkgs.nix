@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
     nixpkgs.config.allowUnfree = true;
 
@@ -32,9 +32,13 @@
         nix-prefetch
         nix-prefetch-scripts
         nix-prefetch-github
+        # gitHub
+        gh
         # fonts
         nerd-fonts.cousine
         nerd-fonts.commit-mono
+        # nixvim
+        inputs.nixvim.packages.${pkgs.system}.default # redyf
     ];
 
 }
