@@ -49,12 +49,14 @@
 
     # Setting Nvidia Optimus https://nixos.wiki/wiki/Nvidia
     hardware.nvidia.prime = {
-        sync.enable = true; # Sync Mode
         # offload mode--Nvidia Gpu sleep
-        #offload = {
-        #    enable = true;
-        #    enableOffloadCmd = true;
-        #};
+        offload = {
+            enable = true;
+            enableOffloadCmd = true;
+        };
+        
+        #sync.enable = true; # Sync Mode
+        
         # Make sure to use the correct Bus ID values for your system!
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
