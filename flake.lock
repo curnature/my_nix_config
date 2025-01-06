@@ -333,11 +333,11 @@
         "nixvim": "nixvim_2"
       },
       "locked": {
-        "lastModified": 1736140548,
-        "narHash": "sha256-XdTz6AdbroMM7X/ic3i2kXK9hPojJilEoSOzmI4OL9A=",
+        "lastModified": 1736141031,
+        "narHash": "sha256-x37QVSj/Aep4O+GnmtxT4T0J4mBxj8E/m7nj54iCYv0=",
         "owner": "curnature",
         "repo": "Neve",
-        "rev": "9be70364be007b4d1e766f49b4bd55100d767283",
+        "rev": "036b129c344106c838a4be762e99d1964097c730",
         "type": "github"
       },
       "original": {
