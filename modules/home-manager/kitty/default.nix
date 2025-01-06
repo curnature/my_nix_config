@@ -3,6 +3,7 @@
 {
     programs.kitty = lib.mkForce {
         enable = true;
+        term = "xterm-256color";
         font = {
             name = "nerd-fonts.cousine";
             size = 14;
