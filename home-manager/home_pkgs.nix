@@ -34,6 +34,8 @@
         nix-prefetch-github
         # gitHub
         gh
+        # chrome for specific extensions
+        google-chrome
         # fonts
         nerd-fonts.cousine
         nerd-fonts.commit-mono
