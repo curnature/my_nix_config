@@ -4,6 +4,8 @@
 
     home.packages = with pkgs; [
         #
+        lm_sensors
+        #
         curl
         nurl
         #
