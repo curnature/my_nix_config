@@ -28,7 +28,10 @@
             # url = "github:elythh/nixvim"; # 
             url = "github:curnature/Neve"; # fork from redyf/Neve
             inputs.nixpkgs.follows = "nixpkgs";
-        }; 
+        };
+
+        # specify the source of Hyprland
+        hyprland.url = "github:hyprwm/Hyprland";
     };
 
     outputs = { 
@@ -36,6 +39,7 @@
         nixpkgs, 
         home-manager, 
         nixos-hardware,
+        hyprland,
         ... 
     }@inputs: let
         # temporarily store system variables. may remove later when figuring out a better way
@@ -57,7 +61,7 @@
             # keep using parameters defined above
             system = system;
             specialArgs = {
-                inherit inputs stateVersion hostname user;
+                inherit inputs stateVersion hostname user hyprland;
             };
             
             # load main nixos config, other modules loaded in configuration.nix
