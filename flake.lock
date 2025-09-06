@@ -679,11 +679,11 @@
         "nixvim": "nixvim_2"
       },
       "locked": {
-        "lastModified": 1757184671,
-        "narHash": "sha256-ru6Mj/jzrXT+gHR5kD9e8fsHirRqVxhOn93xe/aHKYA=",
+        "lastModified": 1757185213,
+        "narHash": "sha256-4xCcx1t+2L9WRBKpkL+WCWNFXgw2HyMDAOI0LskerHI=",
         "owner": "curnature",
         "repo": "Neve",
-        "rev": "bd00913d570c9bcd4e64ccfacc993cfe754e3565",
+        "rev": "ad2641a7b480a42376a77014a6880c4e032d3bc5",
         "type": "github"
       },
       "original": {
