@@ -22,7 +22,7 @@
         ripgrep # for file content searching
       
         # CLI tools
-        thefuck # corrects console command
+        pay-respects # corrects console command
         fzf # for quick file subtree navigation
         zoxide # for historical directories navigation
         bat # syntax highlighting
