@@ -679,8 +679,8 @@
         "nixvim": "nixvim_2"
       },
       "locked": {
-        "lastModified": 1757131547,
-        "narHash": "sha256-H9xlmJJQvvxVC803/BMvbWVPwDVsQeHKbVQErsF1/0Q=",
+        "lastModified": 1757169212,
+        "narHash": "sha256-IpR2ufNLZWaiLbG8xeLajlXbU4Ag8sqJMilKkV6mZ0E=",
         "path": "/home/curvature/Neve",
         "type": "path"
       },
