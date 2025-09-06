@@ -543,11 +543,11 @@
         "nixvim": "nixvim_2"
       },
       "locked": {
-        "lastModified": 1754193820,
-        "narHash": "sha256-tRn7q1fFnqun6SIbEV6Oc7VS6D4Mg5C6CJd9VSgc7UE=",
+        "lastModified": 1757191020,
+        "narHash": "sha256-4bRWWdZkCE5IUtCCN7mlPsPE5s34ROvOIj8dUSFst5Y=",
         "owner": "curnature",
         "repo": "Neve",
-        "rev": "7deb1d771ca926848013920323ff03487a82bff2",
+        "rev": "39418118196e094d068b37fdaf37eccc68f72c5b",
         "type": "github"
       },
       "original": {
