@@ -1,1 +1,2 @@
-README
+Test
+personal nixos config
