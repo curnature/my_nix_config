@@ -26,7 +26,8 @@
             # url = "github:nix-community/nixvim"; # original
             # url = "github:niksingh710/nvix"; # seems not working
             # url = "github:elythh/nixvim"; # 
-            url = "github:curnature/Neve"; # fork from redyf/Neve
+            # url = "github:curnature/Neve"; # fork from redyf/Neve
+            url = "path:/home/curvature/Neve"; # local path
             inputs.nixpkgs.follows = "nixpkgs";
         };
 

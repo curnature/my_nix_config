@@ -679,17 +679,14 @@
         "nixvim": "nixvim_2"
       },
       "locked": {
-        "lastModified": 1757124661,
-        "narHash": "sha256-7YOyWQRx574/sooS3StVKm+C4+zpUjFvatt2XlCgooI=",
-        "owner": "curnature",
-        "repo": "Neve",
-        "rev": "804f7bbe1247240969358c47949281089ebd11fa",
-        "type": "github"
+        "lastModified": 1757131547,
+        "narHash": "sha256-H9xlmJJQvvxVC803/BMvbWVPwDVsQeHKbVQErsF1/0Q=",
+        "path": "/home/curvature/Neve",
+        "type": "path"
       },
       "original": {
-        "owner": "curnature",
-        "repo": "Neve",
-        "type": "github"
+        "path": "/home/curvature/Neve",
+        "type": "path"
       }
     },
     "nixvim_2": {
