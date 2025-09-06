@@ -6,16 +6,17 @@
 }:
 
 let
-    refreshAllScript = pkgs.writeShellScript "refresh-externals-after-resume" ''
-      set -eu
-      ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor -o | ${pkgs.gawk}/bin/awk '{print $1}' | while read -r out; do
-        case "$out" in eDP*|LVDS*|DSI*) continue ;; esac
-        ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor output.$out.disable
-        ${pkgs.coreutils}/bin/sleep 1
-        ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor output.$out.enable
-      done
-   '';
-
+  refreshAllScript = pkgs.writeShellScript "refresh-externals-after-resume" ''
+    set -eu
+    ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor -o \
+      | ${pkgs.gawk}/bin/awk '{print $1}' \
+      | while read -r out; do
+          case "$out" in eDP*|LVDS*|DSI*) continue ;; esac
+          ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor output.$out.disable
+          ${pkgs.coreutils}/bin/sleep 1
+          ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor output.$out.enable
+        done
+  '';
 in
 
 {
@@ -88,21 +89,22 @@ in
     };
     
     # make sure kscreen-doctor is available
-    environment.systemPackages = [ pkgs.kdePackages.kscreen pkgs.gawk ];
-    
-    systemd.user.services."refresh-externals-after-resume" = {
-        Unit = {
-            Description = "Re-enable external displays after suspend (Plasma)";
-            After = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-        };
-        Service = {
-            Type = "oneshot";
-            ExecStart = refreshAllScript;
-        };
-        Install = {
-            WantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-        };
-    };
+  environment.systemPackages = [ pkgs.kdePackages.kscreen pkgs.gawk ];
 
+  systemd.user.services."refresh-externals-after-resume" = {
+    Unit = {
+      Description = "Re-enable external displays after suspend (Plasma)";
+      # Using sleep.target covers suspend/hibernate/hybrid on recent systemd.
+      After = [ "sleep.target" ];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = refreshAllScript;
+    };
+    # <-- THIS is the correct way in NixOS for user units:
+    wantedBy = [ "sleep.target" ];
+    # If you also want to link to the more specific targets, you can:
+    # wantedBy = [ "sleep.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+  };
 }
 
