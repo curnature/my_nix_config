@@ -6,19 +6,16 @@
 }:
 
 let
-    # Script that toggles ALL non-internal displays (no need to hardcode HDMI-1)
     refreshAllScript = pkgs.writeShellScript "refresh-externals-after-resume" ''
-        set -eu
-        # List outputs; first token on each line is the output name
-        for out in $(${pkgs.kscreen}/bin/kscreen-doctor -o | ${pkgs.gawk}/bin/awk '{print $1}'); do
-        case "$out" in
-        eDP*|LVDS*|DSI*) continue ;;  # skip internal panels
-        esac
-        ${pkgs.kscreen}/bin/kscreen-doctor output.$out.disable
+      set -eu
+      ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor -o | ${pkgs.gawk}/bin/awk '{print $1}' | while read -r out; do
+        case "$out" in eDP*|LVDS*|DSI*) continue ;; esac
+        ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor output.$out.disable
         ${pkgs.coreutils}/bin/sleep 1
-        ${pkgs.kscreen}/bin/kscreen-doctor output.$out.enable
-        done
-    '';
+        ${pkgs.kdePackages.kscreen}/bin/kscreen-doctor output.$out.enable
+      done
+   '';
+
 in
 
 {
@@ -91,8 +88,8 @@ in
     };
     
     # make sure kscreen-doctor is available
-    environment.systemPackages = [ pkgs.kscreen pkgs.gawk ];
-
+    environment.systemPackages = [ pkgs.kdePackages.kscreen pkgs.gawk ];
+    
     systemd.user.services."refresh-externals-after-resume" = {
         Unit = {
             Description = "Re-enable external displays after suspend (Plasma)";
