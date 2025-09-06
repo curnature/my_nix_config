@@ -8,13 +8,14 @@
         efi = {
             canTouchEfiVariables = true;
         };
-        grub = {
+	timeout = 60;        
+	grub = {
             enable = true;
             devices = ["nodev"];
             efiSupport = true;
             useOSProber = true; # turn it on if any changes different from the list below
             #devices = ["/dev/nvme1n1p1" "/dev/nvme1n1p5"]; # failed
-            timeout = 60;
+            #timeout = 60; # 25.11 move boot.loader.grub.timeout to boot.loader.timeout
             configurationLimit = 10;
             theme = pkgs.fetchFromGitHub {
                 owner = "tsssni";

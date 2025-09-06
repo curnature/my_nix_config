@@ -5,6 +5,22 @@
     ...
 }:
 
+let
+    # Script that toggles ALL non-internal displays (no need to hardcode HDMI-1)
+    refreshAllScript = pkgs.writeShellScript "refresh-externals-after-resume" ''
+        set -eu
+        # List outputs; first token on each line is the output name
+        for out in $(${pkgs.kscreen}/bin/kscreen-doctor -o | ${pkgs.gawk}/bin/awk '{print $1}'); do
+        case "$out" in
+        eDP*|LVDS*|DSI*) continue ;;  # skip internal panels
+        esac
+        ${pkgs.kscreen}/bin/kscreen-doctor output.$out.disable
+        ${pkgs.coreutils}/bin/sleep 1
+        ${pkgs.kscreen}/bin/kscreen-doctor output.$out.enable
+        done
+    '';
+in
+
 {
 
     # Enable OpenGL
@@ -24,11 +40,11 @@
         # Enable this if you have graphical corruption issues or application crashes after waking
         # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
         # of just the bare essentials.
-        powerManagement.enable = false;
+        powerManagement.enable = true;
 
         # Fine-grained power management. Turns off GPU when not in use.
         # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-        powerManagement.finegrained = false;
+        powerManagement.finegrained = true;
 
         # Use the NVidia open source kernel module (not to be confused with the
         # independent third-party "nouveau" open source driver).
@@ -55,12 +71,41 @@
             enableOffloadCmd = true;
         };
         
-        #sync.enable = true; # Sync Mode
+        # sync.enable = true; # Sync Mode
         
         # Make sure to use the correct Bus ID values for your system!
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
         # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
     };
+    # Fix wake up external screen freeze problem
+    boot.kernelParams = [
+        "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+        "nvidia.NVreg_TemporaryFilePath=/var/tmp"
+    ];
+
+    environment.sessionVariables = {
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      GBM_BACKEND = "nvidia-drm";
+      WLR_NO_HARDWARE_CURSORS = "1";
+    };
+    
+    # make sure kscreen-doctor is available
+    environment.systemPackages = [ pkgs.kscreen pkgs.gawk ];
+
+    systemd.user.services."refresh-externals-after-resume" = {
+        Unit = {
+            Description = "Re-enable external displays after suspend (Plasma)";
+            After = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+        };
+        Service = {
+            Type = "oneshot";
+            ExecStart = refreshAllScript;
+        };
+        Install = {
+            WantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+        };
+    };
 
 }
+

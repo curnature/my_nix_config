@@ -19,7 +19,11 @@ in
     };
 
     # Enable automatic login for the user.
-    services.xserver.displayManager.autoLogin.enable = false;
+    services.displayManager.autoLogin = {
+        enable = false;
+        user = "${user}";
+    };
+    # services.xserver.displayManager.autoLogin.enable = false;
     # services.xserver.displayManager.autoLogin.user = "curvature";
 
 
