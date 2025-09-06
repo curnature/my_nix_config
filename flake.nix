@@ -6,7 +6,7 @@
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         # options for nixpkgs
         nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-        nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+        nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
         # specify the source of home-manager. managing user configurations
         home-manager = {
             url = "github:nix-community/home-manager/master"; # unstable
